@@ -4,6 +4,7 @@ import com.bin.demo.domain.Doctor;
 import com.bin.demo.exception.ExcelException;
 import com.bin.demo.utils.DataMap;
 import com.bin.demo.utils.ExcelUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -15,19 +16,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+@Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DemoApplicationTests {
-
-    private static Logger log = LoggerFactory.getLogger(DemoApplicationTests.class);
 
     @Test
     public void createWorkBook() {
@@ -41,8 +41,34 @@ public class DemoApplicationTests {
     }
 
     @Test
+    public void testUtil(){
+        URI uri = URI.create("http://www.baidu.com");
+        //类路径下查找文件(方式一)
+        URL fileUrl = this.getClass().getClassLoader().getResource("static" + File.separator + "newWorkBook.xlsx");
+        File file = null;
+        try{
+            file = new File(fileUrl.toURI());
+        }catch (URISyntaxException ue){
+            ue.printStackTrace();
+        }
+        log.info("uri:{},fileUrl:{}",uri.toString(),fileUrl);
+        //类路径下查找文件(方式二)
+        InputStream is = this.getClass().getClassLoader().getResourceAsStream("static"+File.separator+"newWorkBook.xlsx");
+        try {
+            byte[] b = new byte[is.available()];
+            is.read(b);
+            log.info("content:{}",new String(b));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        Assert.assertNotNull(file);
+    }
+
+    @Test
     public void openWorkBook() {
+        //项目根目录下查找该文件
         File file = new File("newWorkBook.xlsx");
+
         try (FileInputStream inputStream = new FileInputStream(file)) {
             if (file.isFile() && file.exists()) {
                 XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
@@ -66,7 +92,7 @@ public class DemoApplicationTests {
                 FileOutputStream out = new FileOutputStream(file);
                 workbook.write(out);
             } else {
-                System.out.println("file not found!");
+                log.info("file not found!");
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -80,11 +106,11 @@ public class DemoApplicationTests {
 
         String excelPath = "/Users/xingshulin/Documents/excel/aa.xlsx";
         String sheetName = "工作表1";
-        try{
-            List<Doctor> doctors = ExcelUtil.convertToBeanList(excelPath,sheetName, Doctor.class, DataMap.getDoctorBasicInfoDic());
-            System.out.println(doctors);
+        try {
+            List<Doctor> doctors = ExcelUtil.convertToBeanList(excelPath, sheetName, Doctor.class, DataMap.getDoctorBasicInfoDic());
+            log.info("List:{}",doctors);
             Assert.assertNotNull(doctors);
-        }catch (ExcelException ee){
+        } catch (ExcelException ee) {
             ee.printStackTrace();
         }
 
