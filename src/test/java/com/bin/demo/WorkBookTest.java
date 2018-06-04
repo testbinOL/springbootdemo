@@ -27,7 +27,7 @@ import java.util.TreeMap;
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class DemoApplicationTests {
+public class WorkBookTest {
 
     @Test
     public void createWorkBook() {
