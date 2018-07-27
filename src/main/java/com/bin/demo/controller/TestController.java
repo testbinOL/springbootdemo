@@ -16,7 +16,14 @@ import java.util.Map;
 public class TestController {
 
     @RequestMapping(method = RequestMethod.GET)
-    public String show() {
+    public String show(String num) {
+        for (int i = 0; i < Integer.valueOf(num); i++) {
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return "0000";
     }
 

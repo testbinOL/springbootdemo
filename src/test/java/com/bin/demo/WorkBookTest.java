@@ -64,7 +64,7 @@ public class WorkBookTest {
         Assert.assertNotNull(file);
     }
 
-    @Test
+    @Deprecated
     public void openWorkBook() {
         //项目根目录下查找该文件
         File file = new File("newWorkBook.xlsx");
@@ -100,8 +100,7 @@ public class WorkBookTest {
 
     }
 
-
-    @Test
+    @Deprecated
     public void readWorkBook() {
 
         String excelPath = "/Users/xingshulin/Documents/excel/aa.xlsx";
