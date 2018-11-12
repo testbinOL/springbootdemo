@@ -1,3 +1,17 @@
 server:
   servlet:
-    context-path: /testservlet/
+    context-path: /
+spring:
+  application:
+    name: test-spring
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+rabbitmq:
+  queueName: test
+  topicExchange:
+      name: topic
+      routeKey: topic-queue

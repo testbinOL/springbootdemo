@@ -14,10 +14,10 @@ public class DemoApplication {
         SpringApplication.run(DemoApplication.class, args);
     }
 
-    @Bean
+    /*@Bean
     public ConfigurableServletWebServerFactory configurableServletWebServerFactory(){
         JettyServletWebServerFactory factory = new JettyServletWebServerFactory();
         factory.setPort(8080);
         return factory;
-    }
+    }*/
 }
