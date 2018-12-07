@@ -5,10 +5,10 @@ spring:
   application:
     name: test-spring
   rabbitmq:
-    host: localhost
+    host: 127.0.0.1
     port: 5672
-    username: guest
-    password: guest
+    username: fortest
+    password: 123
 
 rabbitmq:
   queueName: test
