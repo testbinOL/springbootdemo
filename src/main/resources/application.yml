@@ -1,17 +1,46 @@
+#应用访问路径配置
 server:
   servlet:
-    context-path: /
+    context-path: /springbootdemo
+  tomcat:
+    max-connections: 1000
+    max-threads: 1000
+    accept-count: 200
+  port: 8080
+
+#springboot原生配置
 spring:
   application:
     name: test-spring
+#消息队列连接配置
   rabbitmq:
     host: 127.0.0.1
     port: 5672
     username: fortest
     password: 123
+#数据库配置
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/spring?useSSL=true
+    username: root
+    password: 1234567
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#日志配置
+#logging:
+#  level:
+#    com.bin.demo: debug
+#  pattern:
+#    file:
+#  file: /logs/springboodemo/app.log
 
+#队列配置
 rabbitmq:
   queueName: test
   topicExchange:
       name: topic
       routeKey: topic-queue
+
+

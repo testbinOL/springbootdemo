@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class Receiver {
 
-    @RabbitListener(queues = "${rabbitmq.queueName}")
+    //@RabbitListener(queues = "${rabbitmq.queueName}")
     public void precess(Greeting msg) {
         log.info("receive:{}", msg);
     }
