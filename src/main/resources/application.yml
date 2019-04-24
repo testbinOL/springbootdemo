@@ -44,6 +44,9 @@ rabbitmq:
       routeKey: topic-queue
 message:
   say: hello-dev
+redisson:
+  config:
+    filePath: config/redisson-config.json
 ---
 spring:
   profiles: prod
