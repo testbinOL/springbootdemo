@@ -253,7 +253,7 @@
     </plugins>
   </build>
 
-  <repositories>
+  <!--<repositories>
     <repository>
       <id>spring-snapshots</id>
       <name>Spring Snapshots</name>
@@ -269,6 +269,13 @@
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
+    </repository>
+  </repositories>-->
+  <repositories>
+    <repository>
+      <id>nexus-aliyun</id>
+      <name>Nexus aliyun</name>
+      <url>http://maven.aliyun.com/nexus/content/groups/public</url>
     </repository>
   </repositories>
 

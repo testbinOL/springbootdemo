@@ -1,8 +1,12 @@
 package com.bin.demo.message;
 
+import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
  * Author: xingshulin Date: 2019/3/27 上午11:41
@@ -34,10 +38,16 @@ public class KafkaMessageProducer {
         String msg = "test" + ++i;
         ProducerRecord<String, String> producerRecord = new ProducerRecord<>(topic, msg);
         System.out.println("---消息:" + msg);
-        kafkaProducer.send(producerRecord);
+        Future<RecordMetadata> future = kafkaProducer.send(producerRecord, new Callback() {
+          @Override
+          public void onCompletion(RecordMetadata recordMetadata, Exception e) {
+            System.out.println("响应结果返回：" + recordMetadata.offset());
+          }
+        });
         Thread.sleep(5000);
+        System.out.println("同步返回结果：" + future.get().offset());
       }
-    } catch (InterruptedException e) {
+    } catch (InterruptedException | ExecutionException e) {
       System.out.println("线程中断异常" + e.getMessage());
     }
   }
