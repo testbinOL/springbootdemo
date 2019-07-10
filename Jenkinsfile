@@ -9,6 +9,7 @@ def jenkins
 node {
   stage 'Build'
   checkout scm
+  echo "检出完成"
   jenkins = load 'jenkins.groovy'
   jenkins.buildDockerImage()
 }
